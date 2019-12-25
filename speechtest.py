@@ -1,5 +1,5 @@
-from Recognizer import Recognizer
-import constants
+from src.Recognizer import Recognizer
+from src import constants
 
 r = Recognizer()
 r.setLanguage(constants.LANG_SK)

@@ -2,7 +2,7 @@ import pyaudio
 import wave
 import sys
 import time
-import constants
+import src.constants as constants
 
 def delay(l):
     for i in range(l,0,-1):
@@ -35,6 +35,13 @@ class CustomRecorder:
 
   def getFileName(self):
     return self.WAVE_OUTPUT_FILENAME
+
+  def setTimeoutBeforeRecording(self, seconds):
+    assert(isinstance(seconds, int))
+    self.TIMEOUT_BEFORE_RECORDING = seconds
+
+  def getTimeoutBeforeRecording(self):
+    return self.TIMEOUT_BEFORE_RECORDING
 
   def printConfig(self):
     print("rate: {}".format(self.RATE))
