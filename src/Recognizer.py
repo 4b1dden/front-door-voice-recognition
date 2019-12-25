@@ -30,7 +30,6 @@ class Recognizer:
   def getRecordingLength(self):
     return self.recorder.getRecordingLength()
 
-
   def removeRecordingFile(self):
     filename = self.recorder.getFileName()
     if os.path.exists(filename):
