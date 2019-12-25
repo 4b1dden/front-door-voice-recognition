@@ -1,2 +1,2 @@
 # front-door-voice-recognition
-project aiming to ease the process of calling up your house to have them open the door using the buzzer.
+trying to ease the process of calling up your house to have them open the door using the buzzer.
