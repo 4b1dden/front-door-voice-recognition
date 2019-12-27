@@ -13,4 +13,5 @@ recorder:
 
 totp:
   password_valid_interval: 30
+  length: 6
   secret: "bbbbbbbbbbbbbbbb" # has to be 16 chars long (fed into base64.b32decode(secret))
