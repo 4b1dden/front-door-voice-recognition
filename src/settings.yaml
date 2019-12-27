@@ -10,3 +10,8 @@ recorder:
   record_length: 5
   output_filename: "recording.wav"
   timeout_before_recording: 3
+
+totp:
+  password_valid_interval: 30
+  # has to be 16 chars long
+  secret: "bbbbbbbbbbbbbbbb"

@@ -5,6 +5,8 @@ import time
 import src.constants as constants
 import yaml
 
+from src.config import loadConfig
+
 def delay(l):
     for i in range(l,0,-1):
       sys.stdout.write(str(i)+' ')
@@ -14,7 +16,7 @@ def delay(l):
 
 class CustomRecorder:
   def __init__(self, seconds):
-    config = self.loadConfig()['recorder']
+    config = loadConfig()['recorder']
     
     self.FORMAT = pyaudio.paInt16
     self.CHANNELS = config['channels']
@@ -32,18 +34,6 @@ class CustomRecorder:
   def setRecordingLength(self, seconds):
     assert(isinstance(seconds, int))
     self.RECORD_SECONDS = seconds
-
-  def loadConfig(self):
-    with open("src/settings.yaml", 'r') as stream:
-      try:
-          return yaml.safe_load(stream)
-      except yaml.YAMLError as exc:
-          print("Could not load yaml config. Ensure settings.yaml file is present. {}".format(exc))
-          return {}
-
-  def dumpConfig(self, config):
-    with open("src/settings.yaml", "w") as f:
-      yaml.dump(config, f)
 
   def getRecordingLength(self):
     return self.RECORD_SECONDS
@@ -87,7 +77,6 @@ class CustomRecorder:
     stream.close()
     self.audio.terminate()
 
-    # print("writing to {}...".format(self.WAVE_OUTPUT_FILENAME))
     waveFile = wave.open(self.WAVE_OUTPUT_FILENAME, 'wb')
     waveFile.setnchannels(self.CHANNELS)
     waveFile.setsampwidth(self.audio.get_sample_size(self.FORMAT))
