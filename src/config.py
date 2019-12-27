@@ -1,7 +1,11 @@
 import yaml
+from os import path
+
+basepath = path.dirname(__file__)
+filepath = path.abspath(path.join(basepath, "settings.yaml"))
 
 def loadConfig():
-  with open("settings.yaml", 'r') as stream:
+  with open(filepath, 'r') as stream:
       try:
           return yaml.safe_load(stream)
       except yaml.YAMLError as exc:

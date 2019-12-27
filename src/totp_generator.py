@@ -1,4 +1,4 @@
-from config import loadConfig
+from src.config import loadConfig
 import hmac, base64, struct, hashlib, time
 
 def get_hotp_token(secret, intervals_no):
@@ -12,5 +12,3 @@ def get_hotp_token(secret, intervals_no):
 def get_topt():
     config = loadConfig()['totp']
     return get_hotp_token(config['secret'], intervals_no=int(time.time())//config['password_valid_interval'])
-
-print(get_topt())

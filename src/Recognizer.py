@@ -1,9 +1,10 @@
 import os
 import speech_recognition as sr
 from src.CustomRecorder import CustomRecorder 
+import src.constants as constants
 
 class Recognizer:
-  def __init__(self, seconds=None, lang="en-US"):
+  def __init__(self, seconds=None, lang=constants.LANG_SK):
     self.language = lang
 
     self.recognizer = sr.Recognizer()
