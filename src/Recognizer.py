@@ -3,14 +3,11 @@ import speech_recognition as sr
 from src.CustomRecorder import CustomRecorder 
 
 class Recognizer:
-  def __init__(self, lang="en-US",seconds=3):
+  def __init__(self, seconds=None, lang="en-US"):
     self.language = lang
 
     self.recognizer = sr.Recognizer()
-    self.recorder = CustomRecorder(seconds)
-    self.TIMEOUT_BEFORE_RECORDING = 3
-
-    self.recorder.setTimeoutBeforeRecording(self.TIMEOUT_BEFORE_RECORDING)
+    self.recorder = CustomRecorder(seconds if seconds else None)
   
   def setLanguage(self, lang):
     self.language = lang

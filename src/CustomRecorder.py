@@ -3,6 +3,7 @@ import wave
 import sys
 import time
 import src.constants as constants
+import yaml
 
 def delay(l):
     for i in range(l,0,-1):
@@ -12,14 +13,16 @@ def delay(l):
     sys.stdout.write('\n')
 
 class CustomRecorder:
-  def __init__(self, seconds=3, output_filename="recording.wav"):
+  def __init__(self, seconds):
+    config = self.loadConfig()['recorder']
+    
     self.FORMAT = pyaudio.paInt16
-    self.CHANNELS = 2
-    self.RATE = 44100
-    self.CHUNK = 1024
-    self.RECORD_SECONDS = seconds
-    self.WAVE_OUTPUT_FILENAME = output_filename
-    self.TIMEOUT_BEFORE_RECORDING = 5
+    self.CHANNELS = config['channels']
+    self.RATE = config['rate']
+    self.CHUNK = config['chunk_size']
+    self.RECORD_SECONDS = config['record_length'] 
+    self.WAVE_OUTPUT_FILENAME = config['output_filename']
+    self.TIMEOUT_BEFORE_RECORDING = config['timeout_before_recording']
     self.audio = pyaudio.PyAudio()
 
   def setFileName(self, filename):
@@ -29,6 +32,18 @@ class CustomRecorder:
   def setRecordingLength(self, seconds):
     assert(isinstance(seconds, int))
     self.RECORD_SECONDS = seconds
+
+  def loadConfig(self):
+    with open("src/settings.yaml", 'r') as stream:
+      try:
+          return yaml.safe_load(stream)
+      except yaml.YAMLError as exc:
+          print("Could not load yaml config. Ensure settings.yaml file is present. {}".format(exc))
+          return {}
+
+  def dumpConfig(self, config):
+    with open("src/settings.yaml", "w") as f:
+      yaml.dump(config, f)
 
   def getRecordingLength(self):
     return self.RECORD_SECONDS

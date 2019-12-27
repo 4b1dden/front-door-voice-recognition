@@ -1,0 +1,12 @@
+server:
+  port: 8000
+
+recognizer:
+
+recorder:
+  channels: 2
+  rate: 44100
+  chunk_size: 1024
+  record_length: 5
+  output_filename: "recording.wav"
+  timeout_before_recording: 3
